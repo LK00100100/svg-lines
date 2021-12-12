@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="module">
+        import MainScript from "./js/main.js";
+
+        window.MainScript = MainScript;
+    </script>
+
+    <title>Svg Lines</title>
+</head>
+
+<body>
+    <h1>Svg Lines</h1>
+    <p>A small test demo of svg</p>
+
+    <label for="line-x2">x2</label>
+    <input type="text" id="line-x2" name="line-x2" required minlength="1" size="10">
+
+    <label for="line-y2">y2</label>
+    <input type="text" id="line-y2" name="line-y2" required minlength="1" size="10">
+
+    <input type="button" value="add line" onclick="MainScript.addLineButton()">
+    <br>
+
+    <svg id="svg-box" width="600" height="600"></svg>
+</body>
+
+</html>
