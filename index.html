@@ -8,18 +8,38 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="./node_modules/mathjs/lib/browser/math.js"></script>
+    <script>
+        if (window.math != undefined) {
+            console.log("math.js's global variable not found from node modules")
+        }
+        else {
+            console.log("no math.js's global variable in node module... downloading from cdn");
+            document.write(`<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.js">\x3C/script>`);
+        }
+    </script>
+
     <script type="module">
         import MainScript from "./js/main.js";
 
-        window.MainScript = MainScript;
+        console.log("importing main script");
+
+        //make global
+        window.mainScript = new MainScript();
     </script>
 
     <title>Svg Lines</title>
 </head>
 
-<body>
+<body onload="mainScript.resetSvg(mainScript.svgDefaultSize)">
     <h1>Svg Lines</h1>
-    <p>A small test demo of svg</p>
+    <p>
+        A small test demo of svg. Type in cartesian coordinates. The center is the origin.
+        <br>
+        Svg's upper left corner is (0, 0). going right adds to x. Going down adds to y.
+        <br>
+        In math, going right adds to x. Going up adds from y.
+    </p>
 
     <label for="line-x2">x2</label>
     <input type="text" id="line-x2" name="line-x2" required minlength="1" size="10">
@@ -27,10 +47,11 @@
     <label for="line-y2">y2</label>
     <input type="text" id="line-y2" name="line-y2" required minlength="1" size="10">
 
-    <input type="button" value="add line" onclick="MainScript.addLineButton()">
+    <input type="button" value="add line" onclick="mainScript.addLineButton()">
+    <input type="button" value="clear lines" onclick="mainScript.clearLines()">
     <br>
 
-    <svg id="svg-box" width="600" height="600"></svg>
+    <svg id="svg-box" width="10" height="10"></svg>
 </body>
 
 </html>
