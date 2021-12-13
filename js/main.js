@@ -67,9 +67,11 @@ export default class MainScript {
         }
     }
 
+    /**
+     * when add line button is clicked.
+     * this will add a line
+     */
     addLineButton() {
-        console.log("SQRT:" + math.sqrt(-4));   // 2i
-
         let x2 = document.getElementById("line-x2").value;
         let y2 = document.getElementById("line-y2").value;
 
@@ -109,7 +111,6 @@ export default class MainScript {
         this.forceSvgRefresh();
     }
 
-
     /**
      * 
      * @param {Coordinate} coordinate cartesian coordinate
@@ -132,5 +133,22 @@ export default class MainScript {
 
     forceSvgRefresh() {
         this.svgBox.innerHTML = this.svgBox.innerHTML;
+    }
+
+    doMath() {
+        //math is global from math.js. downloaded from index.html
+
+        let stringAnswer = "";
+        stringAnswer += "\nSqrt(-4):" + math.sqrt(-4);   // 2i
+
+        stringAnswer += "\natan2(3,- 3):" + math.atan2(3, -3) / math.pi          // 0.75
+        stringAnswer += "\nlog(10000, 10) :" + math.log(10000, 10)                  // 4
+
+        // expressions
+        stringAnswer += "\nderivative('x^2 + x', 'x'):" + math.derivative('x^2 + x', 'x');
+        stringAnswer += "\nsin(45 deg) ^ 2:" + math.evaluate('sin(45 deg) ^ 2')     // 0.5
+
+        let mathElement = document.getElementById("math-answer");
+        mathElement.innerText = stringAnswer;
     }
 }
