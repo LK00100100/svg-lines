@@ -39,6 +39,9 @@
         Svg's upper left corner is (0, 0). going right adds to x. Going down adds to y.
         <br>
         In math, going right adds to x. Going up adds from y.
+        <br>
+        Open the browser console with F12 (likely).
+    <p id="svg-cartesian-text"></p>
     </p>
 
     <label for="line-x2">x2</label>
@@ -49,10 +52,17 @@
 
     <input type="button" value="add line" onclick="mainScript.addLineButton()">
     <input type="button" value="clear lines" onclick="mainScript.clearLines()">
+
+    <br><br>
+
+    <label for="resize-width">resize pixel width:</label>
+    <input type="text" id="resize-width" name="resize-width" required minlength="1" size="10">
+
+    <input type="button" value="resize svg" onclick="mainScript.resizeSvgClicked()">
+
+    <br><br>
+
     <input type="button" value="math demo" onclick="mainScript.doMath()">
-
-    <br>
-
     <p id="math-answer">random math here...</p>
 
     <br>

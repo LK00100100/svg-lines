@@ -16,19 +16,34 @@ export default class MainScript {
         this.svgBox.setAttribute("width", "" + size);
         this.svgBox.setAttribute("height", "" + size);
 
-        this.drawAxis();
+        let svgInfoText = document.getElementById("svg-cartesian-text");
 
-        this.clearLines();
+        svgInfoText.innerText = `Svg's cartesian upper right coordinate is: (${size / 2}, ${size / 2})`;
+
+        this.redrawAxis();
+
+        this.clearLinesButAxis();
+    }
+
+    resizeSvgClicked() {
+        let newSize = document.getElementById("resize-width").value;
+
+        newSize = Number.parseInt(newSize);
+
+        this.resetSvg(newSize);
     }
 
     /**
+     * remove old x and y axis.
      * draw x and y axis across the canvas
      */
-    drawAxis() {
+    redrawAxis() {
         let svgWidth = this.svgBox.getAttribute("width");
         let svgHeight = this.svgBox.getAttribute("height");
         let svgMidWidth = svgWidth / 2;
         let svgMidHeight = svgHeight / 2;
+
+        this.clearAxis();
 
         //create x axis
         let xAxis = document.createElement("line");
@@ -55,10 +70,19 @@ export default class MainScript {
         this.forceSvgRefresh();
     }
 
+    clearAxis() {
+        for (let i = this.svgBox.children.length - 1; i >= 0; i--) {
+            let child = this.svgBox.children[i];
+
+            if (child.classList.contains("axis"))
+                this.svgBox.removeChild(child);
+        }
+    }
+
     /**
      * clears all lines except x and y axis
      */
-    clearLines() {
+    clearLinesButAxis() {
         for (let i = this.svgBox.children.length - 1; i >= 0; i--) {
             let child = this.svgBox.children[i];
 
@@ -84,9 +108,6 @@ export default class MainScript {
      * @param {Number} y2 cartesian coordinate
      */
     addLineToSvg(x2, y2) {
-        console.log(`x2: ${x2}`);
-        console.log(`y2: ${y2}`);
-
         x2 = Number.parseInt(x2);
         y2 = Number.parseInt(y2);
 
@@ -139,14 +160,14 @@ export default class MainScript {
         //math is global from math.js. downloaded from index.html
 
         let stringAnswer = "";
-        stringAnswer += "\nSqrt(-4):" + math.sqrt(-4);   // 2i
+        stringAnswer += "\nSqrt(-4) : " + math.sqrt(-4);   // 2i
 
-        stringAnswer += "\natan2(3,- 3):" + math.atan2(3, -3) / math.pi          // 0.75
-        stringAnswer += "\nlog(10000, 10) :" + math.log(10000, 10)                  // 4
+        stringAnswer += "\natan2(3,- 3) : " + math.atan2(3, -3) / math.pi          // 0.75
+        stringAnswer += "\nlog(10000, 10) : " + math.log(10000, 10)                  // 4
 
         // expressions
-        stringAnswer += "\nderivative('x^2 + x', 'x'):" + math.derivative('x^2 + x', 'x');
-        stringAnswer += "\nsin(45 deg) ^ 2:" + math.evaluate('sin(45 deg) ^ 2')     // 0.5
+        stringAnswer += "\nderivative('x^2 + x', 'x') : " + math.derivative('x^2 + x', 'x');
+        stringAnswer += "\nsin(45 deg) ^ 2 : " + math.evaluate('sin(45 deg) ^ 2')     // 0.5
 
         let mathElement = document.getElementById("math-answer");
         mathElement.innerText = stringAnswer;
