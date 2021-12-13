@@ -1,6 +1,6 @@
 # svg-lines
 
-https://lk00100100.github.io/svg-lines/
+https://lk00100100.github.io/svg-lines/index.html
 
 A small demo of svg for a friend.
 
