@@ -10,6 +10,7 @@ export default class MainScript {
 
     /**
      * reset the svg to an initial starting point.
+     * redraws x and y axis. clears all lines.
      * @param {Number} size desired size of the svg
      */
     resetSvg(size) {
@@ -25,12 +26,15 @@ export default class MainScript {
         this.clearLinesButAxis();
     }
 
+    /**
+     * resets the svg into a new size and retains the old lines.
+     */
     resizeSvgClicked() {
         let newSize = document.getElementById("resize-width").value;
 
         newSize = Number.parseInt(newSize);
 
-        let lineElements = this.getLines();
+        let lineElements = this.getNonAxisLines();
 
         this.resetSvg(newSize);
 
@@ -44,9 +48,10 @@ export default class MainScript {
     }
 
     /**
+     * gets the all lines drawn on the svg. doesn't get axis.
      * @returns {Array<HTMLElement>}
      */
-    getLines() {
+    getNonAxisLines() {
         let lines = [];
 
         for (let i = this.svgBox.children.length - 1; i >= 0; i--) {
@@ -96,6 +101,9 @@ export default class MainScript {
         this.forceSvgRefresh();
     }
 
+    /**
+     * erases axis drawn on svg
+     */
     clearAxis() {
         for (let i = this.svgBox.children.length - 1; i >= 0; i--) {
             let child = this.svgBox.children[i];
@@ -119,7 +127,7 @@ export default class MainScript {
 
     /**
      * when add line button is clicked.
-     * this will add a line
+     * this will add a line.
      */
     addLineButton() {
         let x2 = document.getElementById("line-x2").value;
@@ -129,7 +137,7 @@ export default class MainScript {
     }
 
     /**
-     * adds a line from 0,0 to x2,y2 on the svg
+     * adds a line from cartesian(0,0) to cartesian(x2,y2) on the svg
      * @param {Number} x2 cartesian coordinate
      * @param {Number} y2 cartesian coordinate
      */
@@ -161,7 +169,8 @@ export default class MainScript {
     }
 
     /**
-     * 
+     * converts a cartesian coordinate into the svg pixel coordinate.
+     * the center of the svg is cartesian(0, 0);
      * @param {Coordinate} coordinate cartesian coordinate
      * @returns {Coordinate} svg pixel coordinate. (0,0) is upper left corner.
      */
@@ -180,10 +189,16 @@ export default class MainScript {
         return new Coordinate(newX, newY);
     }
 
+    /**
+     * forces svg to refresh.
+     */
     forceSvgRefresh() {
         this.svgBox.innerHTML = this.svgBox.innerHTML;
     }
 
+    /**
+     * demos the math.js library and displays the demo text.
+     */
     doMath() {
         //math is global from math.js. downloaded from index.html
 
