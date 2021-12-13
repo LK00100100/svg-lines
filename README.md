@@ -1,5 +1,9 @@
 # svg-lines
 
+![GitHub](https://img.shields.io/github/license/LK00100100/svg-lines.svg)
+![RepoSize](https://img.shields.io/github/repo-size/LK00100100/svg-lines.svg)
+![GitHub stars](https://img.shields.io/github/stars/LK00100100/svg-lines.svg?style=social)
+
 https://lk00100100.github.io/svg-lines/index.html
 
 A small demo of svg for a friend.
