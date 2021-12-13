@@ -30,7 +30,33 @@ export default class MainScript {
 
         newSize = Number.parseInt(newSize);
 
+        let lineElements = this.getLines();
+
         this.resetSvg(newSize);
+
+        lineElements.forEach(elem => {
+            let newX = Number.parseInt(elem.getAttribute("cartcoordx"));
+            let newY = Number.parseInt(elem.getAttribute("cartcoordy"));
+
+            this.addLineToSvg(newX, newY);
+        });
+
+    }
+
+    /**
+     * @returns {Array<HTMLElement>}
+     */
+    getLines() {
+        let lines = [];
+
+        for (let i = this.svgBox.children.length - 1; i >= 0; i--) {
+            let child = this.svgBox.children[i];
+
+            if (!child.classList.contains("axis"))
+                lines.push(child);
+        }
+
+        return lines;
     }
 
     /**
@@ -127,6 +153,8 @@ export default class MainScript {
         lineElement.setAttribute("x2", pixelCoord.x);
         lineElement.setAttribute("y2", pixelCoord.y);
         lineElement.setAttribute("stroke", "black");
+        lineElement.setAttribute("cartcoordx", "" + x2);
+        lineElement.setAttribute("cartcoordy", "" + y2);
         this.svgBox.append(lineElement);
 
         this.forceSvgRefresh();
